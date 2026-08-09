@@ -1,0 +1,33 @@
+# Core notebook environment
+jupyterlab>=4.0
+jupytext>=1.16
+ipykernel>=6.29
+nbconvert>=7.0         # required by `jupytext --execute` to run notebooks
+
+# Data handling
+pandas>=2.2
+numpy>=1.26
+pyarrow>=15.0          # parquet engine - needed for the large BTS files
+
+# Visualization
+matplotlib>=3.8
+seaborn>=0.13
+
+# Modeling
+scikit-learn>=1.4      # metrics, splitting, calibration, baselines
+xgboost>=2.0           # primary model. macOS: needs `brew install libomp`
+statsmodels>=0.14      # STL decomposition, time series
+shap>=0.45             # model interpretation
+
+# Data acquisition + enrichment
+requests>=2.31
+tqdm>=4.66             # download progress bars
+holidays>=0.45         # US federal holiday calendar
+timezonefinder         # find timezone given lat/lng
+
+# Optional alternative gradient booster. Also needs libomp on macOS.
+# lightgbm>=4.3
+
+# Fallback if libomp cannot be installed: sklearn's HistGradientBoosting
+# needs no system dependencies and performs comparably on tabular data.
+# It ships with scikit-learn above, so no extra line is required.

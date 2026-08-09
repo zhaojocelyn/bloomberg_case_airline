@@ -1,0 +1,125 @@
+{
+  "train_year": 2024,
+  "validation_year": 2025,
+  "features": [
+    "Reporting_Airline",
+    "Origin",
+    "Dest",
+    "Month",
+    "DayOfWeek",
+    "DayofMonth",
+    "sched_dep_hour",
+    "sched_dep_minute",
+    "CRSElapsedTime",
+    "Distance",
+    "days_to_next_holiday",
+    "days_since_prev_holiday",
+    "next_holiday_name",
+    "prev_holiday_name",
+    "origin_visibility_sm",
+    "origin_ceiling_ft",
+    "origin_flight_category",
+    "origin_wind_speed_kt",
+    "origin_wind_gust_kt",
+    "origin_precip_mm",
+    "origin_frozen_precip",
+    "origin_thunderstorm",
+    "origin_temp_c",
+    "origin_ifr_hours_past3",
+    "origin_precip_3h",
+    "origin_max_gust_3h",
+    "dest_flight_category",
+    "dest_wind_gust_kt",
+    "dest_frozen_precip",
+    "dest_thunderstorm",
+    "origin_weather_age_minutes",
+    "dest_weather_age_minutes",
+    "origin_weather_observation_missing",
+    "dest_weather_observation_missing",
+    "origin_sched_deps_this_hour",
+    "origin_sched_ops_this_hour",
+    "dest_sched_arrivals_this_hour",
+    "hist_carrier_delay_rate",
+    "hist_carrier_log_count",
+    "hist_origin_delay_rate",
+    "hist_origin_log_count",
+    "hist_dest_delay_rate",
+    "hist_dest_log_count",
+    "hist_route_delay_rate",
+    "hist_route_log_count",
+    "hist_carrier_route_delay_rate",
+    "hist_carrier_route_log_count",
+    "hist_origin_hour_delay_rate",
+    "hist_origin_hour_log_count"
+  ],
+  "categorical_features": [
+    "Reporting_Airline",
+    "Origin",
+    "Dest",
+    "Month",
+    "DayOfWeek",
+    "next_holiday_name",
+    "prev_holiday_name",
+    "origin_flight_category",
+    "dest_flight_category"
+  ],
+  "historical_feature_specs": [
+    {
+      "name": "carrier",
+      "columns": [
+        "Reporting_Airline"
+      ],
+      "smoothing": 2000.0
+    },
+    {
+      "name": "origin",
+      "columns": [
+        "Origin"
+      ],
+      "smoothing": 1000.0
+    },
+    {
+      "name": "dest",
+      "columns": [
+        "Dest"
+      ],
+      "smoothing": 1000.0
+    },
+    {
+      "name": "route",
+      "columns": [
+        "Origin",
+        "Dest"
+      ],
+      "smoothing": 200.0
+    },
+    {
+      "name": "carrier_route",
+      "columns": [
+        "Reporting_Airline",
+        "Origin",
+        "Dest"
+      ],
+      "smoothing": 100.0
+    },
+    {
+      "name": "origin_hour",
+      "columns": [
+        "Origin",
+        "sched_dep_hour"
+      ],
+      "smoothing": 250.0
+    }
+  ],
+  "historical_global_rate": 0.2099805950461002,
+  "best_iteration": 213,
+  "diagnostic_f1_threshold": 0.18159179389476776,
+  "validation_metrics": {
+    "PR_AUC": 0.4234533330429927,
+    "ROC_AUC": 0.7019903763149564,
+    "log_loss": 0.4877264201641083,
+    "Brier": 0.15784543752670288,
+    "ECE_10": 0.02586398769679788,
+    "delay_capture_top10pct": 0.22437478779475992
+  }
+}

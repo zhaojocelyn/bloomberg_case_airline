@@ -1,0 +1,199 @@
+{
+  "development_model": "stage1_xgb_2024_to_2025_03b",
+  "final_model": "stage1_xgb_2024_2025_to_2026_03b_final",
+  "final_train_years": [
+    2024,
+    2025
+  ],
+  "final_test_year": 2026,
+  "final_test_months": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "features": [
+    "Reporting_Airline",
+    "Origin",
+    "Dest",
+    "Month",
+    "DayOfWeek",
+    "DayofMonth",
+    "sched_dep_hour",
+    "sched_dep_minute",
+    "CRSElapsedTime",
+    "Distance",
+    "days_to_next_holiday",
+    "days_since_prev_holiday",
+    "next_holiday_name",
+    "prev_holiday_name",
+    "origin_visibility_sm",
+    "origin_ceiling_ft",
+    "origin_flight_category",
+    "origin_wind_speed_kt",
+    "origin_wind_gust_kt",
+    "origin_precip_mm",
+    "origin_frozen_precip",
+    "origin_thunderstorm",
+    "origin_temp_c",
+    "origin_ifr_hours_past3",
+    "origin_precip_3h",
+    "origin_max_gust_3h",
+    "dest_flight_category",
+    "dest_wind_gust_kt",
+    "dest_frozen_precip",
+    "dest_thunderstorm",
+    "origin_weather_age_minutes",
+    "dest_weather_age_minutes",
+    "origin_weather_observation_missing",
+    "dest_weather_observation_missing",
+    "origin_sched_deps_this_hour",
+    "origin_sched_ops_this_hour",
+    "dest_sched_arrivals_this_hour",
+    "hist_carrier_delay_rate",
+    "hist_carrier_log_count",
+    "hist_origin_delay_rate",
+    "hist_origin_log_count",
+    "hist_dest_delay_rate",
+    "hist_dest_log_count",
+    "hist_route_delay_rate",
+    "hist_route_log_count",
+    "hist_carrier_route_delay_rate",
+    "hist_carrier_route_log_count",
+    "hist_origin_hour_delay_rate",
+    "hist_origin_hour_log_count",
+    "national_delay_rate_7d",
+    "national_delay_rate_28d",
+    "carrier_delay_rate_28d",
+    "origin_delay_rate_28d",
+    "dest_delay_rate_28d",
+    "national_delay_pressure_7d_vs_28d"
+  ],
+  "categorical_features": [
+    "Reporting_Airline",
+    "Origin",
+    "Dest",
+    "Month",
+    "DayOfWeek",
+    "next_holiday_name",
+    "prev_holiday_name",
+    "origin_flight_category",
+    "dest_flight_category"
+  ],
+  "availability_lag_days": 2,
+  "historical_feature_specs": [
+    {
+      "name": "carrier",
+      "columns": [
+        "Reporting_Airline"
+      ],
+      "smoothing": 2000.0
+    },
+    {
+      "name": "origin",
+      "columns": [
+        "Origin"
+      ],
+      "smoothing": 1000.0
+    },
+    {
+      "name": "dest",
+      "columns": [
+        "Dest"
+      ],
+      "smoothing": 1000.0
+    },
+    {
+      "name": "route",
+      "columns": [
+        "Origin",
+        "Dest"
+      ],
+      "smoothing": 200.0
+    },
+    {
+      "name": "carrier_route",
+      "columns": [
+        "Reporting_Airline",
+        "Origin",
+        "Dest"
+      ],
+      "smoothing": 100.0
+    },
+    {
+      "name": "origin_hour",
+      "columns": [
+        "Origin",
+        "sched_dep_hour"
+      ],
+      "smoothing": 250.0
+    }
+  ],
+  "recent_national_windows": [
+    7,
+    28
+  ],
+  "recent_group_specs": [
+    {
+      "name": "carrier",
+      "columns": [
+        "Reporting_Airline"
+      ],
+      "window_days": 28,
+      "smoothing": 500.0
+    },
+    {
+      "name": "origin",
+      "columns": [
+        "Origin"
+      ],
+      "window_days": 28,
+      "smoothing": 250.0
+    },
+    {
+      "name": "dest",
+      "columns": [
+        "Dest"
+      ],
+      "window_days": 28,
+      "smoothing": 250.0
+    }
+  ],
+  "pressure_feature": {
+    "name": "national_delay_pressure_7d_vs_28d",
+    "definition": "national_delay_rate_7d - national_delay_rate_28d"
+  },
+  "frozen_development_best_iteration": 257,
+  "final_n_estimators": 258,
+  "frozen_2025_threshold": 0.21712109446525574,
+  "xgb_params": {
+    "objective": "binary:logistic",
+    "n_estimators": 258,
+    "learning_rate": 0.05,
+    "max_depth": 8,
+    "min_child_weight": 20,
+    "subsample": 0.85,
+    "colsample_bytree": 0.85,
+    "reg_alpha": 0.05,
+    "reg_lambda": 5.0,
+    "max_bin": 256,
+    "tree_method": "hist",
+    "enable_categorical": true,
+    "max_cat_to_onehot": 16,
+    "eval_metric": [
+      "logloss",
+      "aucpr"
+    ],
+    "random_state": 42,
+    "n_jobs": -1
+  },
+  "test_metrics": {
+    "PR_AUC": 0.41397943600209314,
+    "ROC_AUC": 0.7008095468167908,
+    "log_loss": 0.47478872537612915,
+    "Brier": 0.15258358418941498,
+    "ECE_10": 0.012255975635482972,
+    "delay_capture_top10pct": 0.23045255946566698
+  }
+}

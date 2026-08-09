@@ -167,33 +167,45 @@ The project uses Jupytext Python notebooks (`py:percent` format), so notebook ce
 
 ```text
 .
-├── 01_data_acquisition.py
-├── 02_eda.py
-├── 03_modeling_stage1_*.py
-├── 03_modeling_stage1_03b_history_recent_pressure_with_shap.py
-├── 04_final_test_2026_experiment_3b.py
-│
-├── clean_data.py
-├── features.py
-├── historical_features.py
-├── recent_performance_features.py
-│
+├── README.md              # summary + reproduction instructions
+├── docs/                  # per-notebook specs
+│   ├── airline_delay_case_study_report.pdf        
+├── requirements.txt
+├── setup.sh
+├── jupytext.toml
+├── notebooks/
+│   ├── 01_data_acquisition.ipynb
+│   ├── 02_eda.ipynb
+│   ├── 03_modeling_stage1_*.ipynb
+│   ├── 03_modeling_stage1_03b_history_recent_pressure.ipynb
+│   └── 04_final_test_2026_experiment_3b.ipynb
+├── src/
+│   ├── download_bts.py    # loops the PREZIP endpoint (done)
+│   ├── download_weather.py
+│   ├── weather.py         # hourly table + rolling history
+│   ├── clean_data.py      # target construction + split loader
+│   ├── features.py        # holiday + weather features (done, tested)
+│   ├── historical_features.py    
+│   └── recent_performance_features.py    
 ├── data/
-│   ├── interim/
-│   └── ...
-│
-├── figures/
+│   ├── raw/               # gitignored
+│   ├── interim/           # parquet, gitignored (29 files present)
+│   ├── lookups/           # small committed reference files
+│   └── sample/            # one month, COMMITTED (dev only)
 ├── models/
-└── README.md
+│   ├── stage1_xgb_2024_to_2025_*.json               
+│   └── stage1_xgb_2024_to_2025_*.joblib 
+└── figures/
 ```
 
 Key modules:
 
+- `airline_delay_case_study_report.pdf ` — final report.
 - `clean_data.py` — target construction, diversion recovery, model eligibility, and temporal split loading.
 - `features.py` — schedule, calendar, holiday, timezone, weather, and scheduled-demand features.
 - `historical_features.py` — leakage-safe static historical risk priors.
 - `recent_performance_features.py` — lagged recent national, carrier, origin, and destination performance features.
-- `03_modeling_stage1_03b_history_recent_pressure_with_shap.py` — leading Stage 1 experiment, validation, threshold diagnostics, temporal stability, and TreeSHAP.
+- `03_modeling_stage1_03b_history_recent_pressure.py` — leading Stage 1 experiment, validation, threshold diagnostics, temporal stability, and TreeSHAP.
 - `04_final_test_2026_experiment_3b.py` — retraining/evaluation workflow for the Jan-May 2026 out-of-time period.
 
 ## Running the project
@@ -234,7 +246,7 @@ The EDA covers outcome prevalence, carriers, airports, time-of-day patterns, wea
 ### 4. Run the leading Stage 1 experiment
 
 ```bash
-jupytext --to notebook 03_modeling_stage1_03b_history_recent_pressure_with_shap.py
+jupytext --to notebook 03_modeling_stage1_03b_history_recent_pressure.py
 ```
 
 This workflow builds Experiment 3b, evaluates it on 2025, produces threshold and monthly diagnostics, and computes TreeSHAP model-driver importance.
