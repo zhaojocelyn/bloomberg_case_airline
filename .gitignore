@@ -1,0 +1,21 @@
+# Environment
+.venv/
+__pycache__/
+*.py[cod]
+
+# Data - raw BTS files and derived parquet are far too large for git.
+# The download script reproduces them; data/sample/ is committed instead.
+data/raw/
+data/interim/
+*.zip
+*.parquet
+!data/sample/*.parquet
+# data/lookups/ holds small committed reference files (airport coords, etc.)
+# data/lookups/ is NOT ignored
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# OS
+.DS_Store
