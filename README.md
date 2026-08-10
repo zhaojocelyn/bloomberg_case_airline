@@ -157,7 +157,7 @@ The highest global SHAP drivers include:
 
 Scheduled departure hour is the strongest global model driver in the current SHAP analysis.
 
-SHAP importance answers **which features most influence model predictions**. Signed SHAP values can additionally show whether particular feature values push a prediction toward higher or lower delay risk.
+SHAP importance answers **which features most influence model predictions**. Signed SHAP values can additionally show **whether particular feature values** push a prediction toward higher or lower delay risk.
 
 SHAP and XGBoost gain importance are not causal measures. They explain model behavior and predictive associations, not what would happen if an airline or airport actively changed a feature.
 
